@@ -1,0 +1,3 @@
+C:/Users/tuann/OneDrive/Desktop/codeforce training/cmake-build-debug/CMakeFiles/codeforce_training.dir
+C:/Users/tuann/OneDrive/Desktop/codeforce training/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/tuann/OneDrive/Desktop/codeforce training/cmake-build-debug/CMakeFiles/rebuild_cache.dir
