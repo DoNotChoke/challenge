@@ -1,50 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool SortbySec(pair<int,int> &a, pair<int,int>&b)
+bool Possible(vector<int> &nums, int n, int k, int sep)
 {
-    return a.second< b.second;
+    int cnt=0;
+    for(int i=0;i<n;i++)
+    {
+        if(nums[i] % sep==0) cnt+= nums[i]/sep-1;
+        else
+            cnt+= nums[i]/sep;
+    }
+    if(cnt <= k) return true;
+    return false;
 }
-int solve(vector<pair<int,int>> map, int w,int h, int n)
+int solve(vector<int>& nums, int n, int k)
 {
-    sort(map.begin(),map.end());
-    int maxWidth= map[0].first- 1;
-    for(int i=1;i<n;i++)
+    sort(nums.begin(),nums.end());
+    int s=0;
+    int e= nums[n-1];
+    int ans=-1;
+    while(s<=e)
     {
-        maxWidth= max(map[i].first-map[i-1].first,maxWidth);
+        int mid=(s+e)/2;
+        bool check= Possible(nums,n,k,mid);
+        if(check)
+        {
+            ans= mid;
+            e=mid-1;
+        }
+        else
+            s= mid+1;
     }
-    maxWidth= max(maxWidth, w-map[n-1].first);
-    sort(map.begin(),map.end(), SortbySec);
-    int maxLength= map[0].second-1;
-    for(int i=1;i<n;i++)
-    {
-        maxLength= max(map[i].second-map[i-1].second,maxLength);
-    }
-    maxLength= max(maxLength,h-map[n-1].second);
-    return maxWidth*maxLength;
-
+    return ans;
 }
 int main()
 {
     ios_base::sync_with_stdio(false);
     cout.tie(nullptr);
     cin.tie(nullptr);
-    int test;
-    cin>> test;
-    while(test--)
-    {
-        int w;
-        int h;
-        int n;
-        cin>>w>>h>>n;
-        vector<pair<int,int>> mp;
-        for(int i=0;i<n;i++)
-        {
-            int w1,h1;
-            cin>>w1>>h1;
-            mp.push_back(make_pair(w1,h1));
-        }
-        cout<<solve(mp,w,h,n);
+    int n;
+    cin>>n;
+    int k;
+    cin>>k;
+    vector<int> nums(n);
+    for(int i=0;i<n;i++)
+        cin>> nums[i];
+    cout<<solve(nums,n,k);
 
-
-    }
 }
